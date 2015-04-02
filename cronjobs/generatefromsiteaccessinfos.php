@@ -91,6 +91,13 @@ else
     return;
 }
 
+// OW: Define if we must fetch main nodes only.
+$mainNodeOnly = FALSE;
+if( $bcgooglesitemapsINI->hasVariable('NodeSettings', 'MainNodeOnly') )
+{
+    $mainNodeOnly = strtolower($bcgooglesitemapsINI->variable('NodeSettings', 'MainNodeOnly')) === "true";
+}
+
 /**
  * BC: Fetch the array of siteaccess names (multi siteaccess; multi language)
  * which should be used to fetch content for the sitemap or the default
@@ -189,6 +196,14 @@ foreach ( $siteaccesses as $siteaccess )
     $nodeArray = $rootNode->subTree( array( 'Language' => $siteaccess['siteaccessLanguages'],
                                             'ClassFilterType' => $classFilterType,
                                             'ClassFilterArray' => $classFilterArray ) );
+
+    $nodeArray = eZFunctionHandler::execute( 'content', 'tree', array(
+        'parent_node_id' => $siteaccessRootNodeID,
+        'language' => $siteaccess['siteaccessLanguages'],
+        'class_filter_type' => $classFilterType,
+        'class_filter_array' => $classFilterArray,
+        'main_node_only' => $mainNodeOnly
+    ) );
 
     /**
      * Prepend the root node to the nodes array
@@ -301,5 +316,3 @@ foreach ( $siteaccesses as $siteaccess )
 /**
  * Terminate execution and exit system normally
  */
-
-?>
