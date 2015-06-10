@@ -2,7 +2,8 @@
 
 [BCGoogleSitemapSettings]
 # Content subtree NodeID to include in sitemap content
-SitemapRootNodeID=2
+# Must be set in siteaccess settings for each siteaccess
+#SitemapRootNodeID=2
 # Sitemap link default protocol
 Protocol=http
 # Sitemap XML file name prefix
