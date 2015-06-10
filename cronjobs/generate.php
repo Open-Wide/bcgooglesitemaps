@@ -121,7 +121,7 @@ $siteaccesses = array();
 foreach( $siteAccessArray as $siteAccess )
 {
     $siteAccessINI = eZINI::instance( 'site.ini.append.php', 'settings/siteaccess/' . $siteAccess  );
-    $siteacessLocale = $siteAccessINI->variable( 'RegionalSettings', 'Locale' );
+    $siteacessLocale = $siteAccessINI->variable( 'RegionalSettings', 'ContentObjectLocale' );
 
     if ( $siteAccessINI->hasVariable( 'RegionalSettings', 'SiteLanguageList' ) )
     {
